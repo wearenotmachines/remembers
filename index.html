@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>WeAreNotMachines::Remembers - A quick and easy cookie store</title>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+	
+	<div class="container">
+		<div class="row">
+			<h1>I can remember some data from a link:</h1>
+			<code>
+			&lt;a data-remember-label="vital" data-rememeber-value="information" href="#"&gt;Don't forget this!&lt;/a&gt;
+			</code>
+			<p><a class="btn btn-primary" data-remember-label="vital" data-rememeber-value="information" href="#">Don't forget this!</a></p>
+			<div data-role="remember-debug" data-remember-scope="vital"></div>
+		</div>
+
+		<div class="row">
+			<h1>Remember a list of items</h1>
+			<p>I'll remember elements with the same label, you can tell me a specific value or I can just remember the content of the element:</p>
+			<pre>
+&lt;a href="#" data-role="remember" data-remember="shopping"&gt;Don't forget to buy these:&lt;/a&gt;
+&lt;ul&gt;
+  &lt;li data-remember-label="shopping" data-remember-value="sweets"&gt;Sweets&lt;/li&gt;
+  &lt;li data-remember-label="shopping" data-remember-value="bread"&gt;Bread&lt;/li&gt;
+  &lt;li data-remember-label="shopping" data-remember-value="cakes"&gt;Cakes&lt;/li&gt;
+  &lt;li data-remember-label="shopping" data-remember-value="apples"&gt;Apples&lt;/li&gt;
+  &lt;li data-remember-label="shopping"&gt;Magic wand&lt;/li&gt;
+&lt;/ul&gt;
+			</pre>
+			<a class="btn btn-primary" href="#" data-role="remember" data-remember="shopping">Don't forget to buy these:</a>
+			<ul>
+				<li data-remember-label="shopping" data-remember-value="sweets">Sweets</li>
+				<li data-remember-label="shopping" data-remember-value="bread">Bread</li>
+				<li data-remember-label="shopping" data-remember-value="cakes">Cakes</li>
+				<li data-remember-label="shopping" data-remember-value="apples">Apples</li>
+				<li data-remember-label="shopping">Magic wand</li>
+			</ul>
+			<div data-role="remember-debug" data-remember-scope="shopping"></div>
+		</div>
+
+		<div class="row">
+			<h1>Remember a bunch of data</h1>
+			<p>I'll remember a data structure made up from different elements - just give me the label and a set of keys and values - or let me remember the element content:</p>
+			<pre>
+&lt;a data-role="remember" data-remember="unicorn" href="#"&gt;Remember this unicorn&lt;/a&gt;
+&lt;div class="item" data-remember-label="unicorn" data-remember-key="id" data-remember-value="1234"&gt;
+  &lt;img /&gt;
+  &lt;ul&gt;
+    &lt;li data-remember-label="unicorn" data-remember-key="title"&gt;Magical Unicorn&lt;/li&gt;
+	&lt;li data-remember-label="unicorn" data-remember-key="description"&gt;It's basically a horse with a plastic horn glued to it.&lt;/li&gt;
+	&lt;li&gt;
+	  &lt;label&gt;What colour would you like?&lt;/label&gt;
+	  &lt;select data-remember-label="unicorn" data-remember-key="colour"&gt;
+	    &lt;option value="white" selected&gt;White&lt;/option&gt;
+	    &lt;option value="green"&gt;Green&lt;/option&gt;
+	    &lt;option value="blue"&gt;Blue&lt;/option&gt;
+	  &lt;/select&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+	  &lt;label&gt;Name your unicorn:&lt;/label&gt;
+	  &lt;input type="text" data-remember-label="unicorn" data-remember-key="name" placeholder="choose a name for your magical beast" /&gt;
+	&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+			</pre>
+			<a data-role="remember" class="btn btn-primary" data-remember="unicorn" href="#">Remember this unicorn</a>
+			<div class="item" data-remember-label="unicorn" data-remember-key="id" data-remember-value="1234">
+				<img />
+				<ul class="form-inline">
+					<li data-remember-label="unicorn" data-remember-key="title">Magical Unicorn</li>
+					<li data-remember-label="unicorn" data-remember-key="description">It's basically a horse with a plastic horn glued to it.</li>
+					<li>
+						<div class="form-group">
+						<label>What colour would you like?</label>
+							<select class="form-control" data-remember-label="unicorn" data-remember-key="colour">
+								<option value="white" selected>White</option>
+								<option value="green">Green</option>
+								<option value="blue">Blue</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<div class="form-group">
+							<label>Name your unicorn:</label>
+							<input class="form-control" type="text" data-remember-label="unicorn" data-remember-key="name" placeholder="choose a name for your magical beast" />
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<h1>I can remember arbitrary data that you put into scope:</h1>
+			<pre>
+				window.weather = {
+					"date" : "10th October 2015",
+					"location" : "london",
+					"outlook" : "beautiful",
+					"temperature" : {
+						"centigrade" : 22,
+						"farenheit" : 72
+					}
+				}
+			</pre>
+			<a class="btn btn-primary" data-role="remember" data-remember-label="weather" data-remember-source="window.weather" href="#">Remember this beautiful day</a>
+			<div data-role="remember-debug" data-remember-scope="weather"></div>
+		</div>
+
+		<div class="row">
+			<h1>I can remember something you tell me in a callback as well</h1>
+			<pre>
+				wearenotmachines.dontforgetthemilk = function() {
+					return { "dontForget" : "the milk", "when" : "today" };
+				}
+			</pre>
+			<a class="btn btn-primary" data-role="remember" data-remember-label="dontForget" data-remember-source="wearenotmachines.dontforgetthemilk">Dont forget the milk</a>
+			<div data-role="remember-debug" data-remember-scope="dontForget"></div>
+		</div>
+
+		<div class="row">
+			<h1>I can forget things too</h1>
+			<a class="btn btn-warning" href="#" data-role="forget" data-forget-scope="unicorn">Forget about the unicorn</a>
+			<a class-"btn btn-danger" href="#" data-role="forget">Forget everything</a>
+			<div data-role="remember-debug"></div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javscript">
+window.weather = {
+					"location" : "london",
+					"outlook" : "beautiful",
+					"temperature" : {
+						"centigrade" : 22,
+						"farenheit" : 72
+					}
+				}
+</script>
