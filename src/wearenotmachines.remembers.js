@@ -5,12 +5,10 @@ $.fn.remembers = function() {
 
 	var r = this;
 
+	window.remembers = r;
 	this.scopes = [];
 	this.data = {};
 
-	this.shout = function() {
-		alert("Hello!");
-	}
 
 	this.addScope = function(element) {
 		var scope;
@@ -41,7 +39,7 @@ $.fn.remembers = function() {
 		if (matchers.length) {
 			this.fetchFromMatchers(scopeName, matchers);
 			return element;
-		}	
+		}
 		//does the element reference a source - this could be a function or a piece of stored data eg in window
 		if (element.attr("data-remember-source")!==undefined) {
 			this.fetchFromSource(scopeName, element);
@@ -96,9 +94,44 @@ $.fn.remembers = function() {
 		}
 	}
 
+	this.update = function(event) {
+		event.preventDefault();
+		return r.fetch(event.target);
+	}
+
+
+	this.getData = function() {
+		return r.data;
+	}
+
+	this.getScopes = function() {
+		return r.scopes;
+	}
+
+	this.getInstance = function() {
+		return this;
+	}
+
+	this.debug = function(event) {
+		var scope = r.getScope(event.target);
+		debugData = r.data[scope] ? r.data[scope] : r.data;
+		$("[data-role='remember-debug']").each(function(i,d) {
+			if ($(d).attr("data-remember-scope")==scope) {
+				$(d).html("<pre>"+JSON.stringify(debugData, null, '\t')+"</pre>");
+			}
+		});
+		return debugData;
+	}
+	
 	this.each(function(i, e) {
 		r.addScope(e);
 		r.fetch(e);
+		//allow anchors and buttons to update themselves automatically
+		if ($(e).is("a") || $(e).is("button") || $(e).is("input[type='submit']") || $(e).is("input[type='button']")) {
+			$(e).on("click", r.update);
+			$(e).on("click", r.debug);
+		}
+
 	});
 
 	console.log(r.data);
