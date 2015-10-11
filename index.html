@@ -106,6 +106,10 @@
 		<div class="row">
 			<h1>I can remember arbitrary data that you put into scope:</h1>
 			<pre>
+
+&lt;a data-role="remember" data-remember="weather" data-remember-source="window.weather" href="#"&gt;Remember this beautiful day&lt;/a&gt;
+
+
 window.weather = {
     "date" : "10th October 2015",
     "location" : "london",
@@ -123,6 +127,9 @@ window.weather = {
 		<div class="row">
 			<h1>I can remember something you tell me in a callback as well</h1>
 			<pre>
+&lt;a data-role="remember" data-remember="dontForget" data-remember-source="wearenotmachines.dontforgetthemilk"&gt;Dont forget the milk&lt;/a&gt;
+
+
 wearenotmachines.dontforgetthemilk = function() {
   return { "what" : "the milk", "when" : "today" };
 }
@@ -157,5 +164,5 @@ wearenotmachines.dontforgetthemilk = function() {
 </script>
 
 <script type="text/javascript">
-$("[data-role='remember']").remembers();
+window.memory = $("[data-role='remember']").remembers();
 </script>
